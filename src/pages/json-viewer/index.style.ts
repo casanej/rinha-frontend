@@ -24,3 +24,9 @@ export const JsonViewerFileName = styled.h1`
     font-weight: normal;
   }
 `;
+
+export const JsonViewerTree = styled.div`
+  width: 100%;
+  height: 90%;
+  overflow-y: auto;
+`;

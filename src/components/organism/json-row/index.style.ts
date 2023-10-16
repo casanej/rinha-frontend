@@ -17,14 +17,13 @@ export const JsonRowContainer = styled.div<{ type: JsonRowTypeColors; depth: num
 
 
   ${props => props.depth >= 1 && css`
-    border-left: 1px solid grey;
     margin-left: ${Math.max(0, props.depth - 1) * 20}px;
     padding-left: ${props.depth + 1 * 20}px;
   `}
 
   span {
     &:nth-child(1) {
-      color: white;
+      color: #4E9590;
     }
 
     &:nth-child(2) {

@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "vite build",
+    "deploy": "yarn build && firebase deploy",
     "dev:update-deps": "rm -rf pnpm-lock.yaml node_modules/ **/node_modules && pnpm install",
     "dev": "vite dev",
     "format": "prettier --write .",
@@ -26,6 +27,8 @@
     "dexie": "^3.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-virtualized-auto-sizer": "^1.0.20",
+    "react-window": "^1.8.9",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {
@@ -34,6 +37,7 @@
     "@types/node": "^20.6.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "@types/react-window": "^1.8.6",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
     "@vitejs/plugin-react": "^4.0.4",
