@@ -26,7 +26,5 @@ export const JsonViewerFileName = styled.h1`
 `;
 
 export const JsonViewerTree = styled.div`
-  width: 100%;
-  height: 90%;
-  overflow-y: auto;
+  height: calc(100% - 40px);
 `;

@@ -47,9 +47,11 @@ export default function HomePage () {
 
   if (loading) return <S.HomePageStyled>
     <S.HomePageTitle>Carregando...</S.HomePageTitle>
-  </S.HomePageStyled>;
+  </S.HomePageStyled>
 
-  if (json) return <JsonViewerPage file={json} onBack={handleBack} />;
+  if (json) return <S.HomePageStyled>
+    <JsonViewerPage file={json} onBack={handleBack} />
+  </S.HomePageStyled>
 
   return <S.HomePageStyled>
     <S.HomePageTitle>JSON Tree Viewer</S.HomePageTitle>
@@ -58,5 +60,5 @@ export default function HomePage () {
     {
       showErrorMessage && <S.HomePageErrorMessage>Invalid JSON file. Please load a valid JSON file.</S.HomePageErrorMessage>
     }
-  </S.HomePageStyled>;
+  </S.HomePageStyled>
 };

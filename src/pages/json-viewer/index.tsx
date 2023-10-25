@@ -35,6 +35,10 @@ export default function JsonViewerPage({ file, onBack }: JsonViewerPageProps) {
             itemCount={formattedJson.length}
             itemSize={30}
             width={width}
+            style={{
+              overflowX: 'hidden',
+              overflowY: 'auto'
+            }}
           >
             {Row}
           </List>
