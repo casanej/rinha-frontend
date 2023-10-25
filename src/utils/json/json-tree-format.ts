@@ -6,6 +6,8 @@ export const jsonTreeFormatV2 = (jsonObject: any, list: JsonTreeFormatV2[] = [],
     const message = jsonObject[key];
     const type = typeof message;
 
+    const isArray = message instanceof Array;
+
     const currentJson = {
       key,
       depth,
@@ -13,29 +15,37 @@ export const jsonTreeFormatV2 = (jsonObject: any, list: JsonTreeFormatV2[] = [],
       value: `${message}`,
     } as JsonTreeFormatV2;
 
-    if (type === 'object' && message === undefined) {
-      currentJson.type = 'undefined';
-      list.push(currentJson);
-    } else if (
-      (type === 'object' && message === null)
-      || type === 'string'
-      || type === 'number'
-      || type === 'boolean'
-    ) {
-      list.push(currentJson);
-    } else {
-      const isArray = Array.isArray(message);
-      currentJson.type = isArray ? 'array' : 'object';
-      currentJson.value = isArray ? '[' : '{';
+    if (isArray) {
+
+      currentJson.type = 'array';
+      currentJson.value = '[';
 
       list.push(currentJson);
-      trampoline(jsonTreeFormatV2)(message, list, depth + 1) as any;
+      trampoline(jsonTreeFormatV2)(message, list, depth + 1);
       list.push({
         key: '',
-        value: isArray ? ']' : '}',
-        depth: depth,
-        type: isArray ? 'endArray' : 'endObject'
+        value: ']',
+        depth,
+        type: 'endArray',
       });
+
+    } else if (type === 'object' && message !== undefined && message !== null) {
+      currentJson.type = 'object';
+      currentJson.value = '{';
+
+      list.push(currentJson);
+      trampoline(jsonTreeFormatV2)(message, list, depth + 1);
+      list.push({
+        key: '',
+        value: '}',
+        depth: depth,
+        type: 'endObject'
+      });
+    } else if (type === 'object' && message === undefined) {
+      currentJson.type = 'undefined';
+      list.push(currentJson);
+    } else {
+      list.push(currentJson);
     }
 
   });
