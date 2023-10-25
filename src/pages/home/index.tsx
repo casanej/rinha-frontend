@@ -54,7 +54,7 @@ export default function HomePage () {
   return <S.HomePageStyled>
     <S.HomePageTitle>JSON Tree Viewer</S.HomePageTitle>
     <div>Simple JSON viewer that runs completely on-client. No data exchange</div>
-    <InputFile accept="application/json" onChange={handleFileChange} />
+    <InputFile accept="application/json" onChange={handleFileChange} aria-label="JSON Input" />
     {
       showErrorMessage && <S.HomePageErrorMessage>Invalid JSON file. Please load a valid JSON file.</S.HomePageErrorMessage>
     }

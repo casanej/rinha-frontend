@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const JsonViewerPageStyled = styled.div`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1900px;
   height: 100vh;
   margin: 0 auto;
   padding: 24px 0 0 0;
