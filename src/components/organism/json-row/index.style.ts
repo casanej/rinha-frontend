@@ -21,7 +21,7 @@ export const JsonRowContainer = styled.div<{ type: JsonRowTypeColors; depth: num
     padding-left: ${props.depth + 1 * 20}px;
   `}
 
-  span {
+  label {
     &:nth-child(1) {
       color: #4E9590;
     }

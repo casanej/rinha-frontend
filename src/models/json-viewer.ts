@@ -8,4 +8,5 @@ export interface JsonTreeFormatV2 {
   value?: any;
   depth: number;
   type: string;
+  chars: number;
 }

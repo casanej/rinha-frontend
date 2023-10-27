@@ -1,10 +1,15 @@
 import { useMemo } from 'react';
 import AutoSizer from "react-virtualized-auto-sizer";
-import { FixedSizeList as List } from 'react-window';
+import { VariableSizeList as List } from 'react-window';
 import * as S from './index.style';
 import { JsonViewerPageProps } from './index.type';
 import { jsonTreeFormatV2 } from '../../utils/json/json-tree-format';
 import { JsonRow } from '../../components';
+
+const MAX_CHARS_PER_LINE_DEFAULT = 265;
+const MAX_WINDOW_SIZE = 1900;
+const MIN_WINDOW_SIZE = 360;
+const LINE_HEIGHT = 20;
 
 export default function JsonViewerPage({ file, onBack }: JsonViewerPageProps) {
   const formattedJson = useMemo(() => {
@@ -17,6 +22,19 @@ export default function JsonViewerPage({ file, onBack }: JsonViewerPageProps) {
       length: response.length
     };
   }, [file.data]);
+
+  const handleItemSize = (windowWidth: number) => {
+    return (index: number) => {
+      const percentageMultiply = MAX_WINDOW_SIZE / Math.max(windowWidth, MIN_WINDOW_SIZE);
+      const maxCharsPerLine = MAX_CHARS_PER_LINE_DEFAULT / percentageMultiply;
+
+      if (formattedJson.response[index].chars >= maxCharsPerLine) {
+        return ((((formattedJson.response[index].chars / maxCharsPerLine)) * LINE_HEIGHT)) + 5;
+      }
+
+      return 20;
+    }
+  }
 
   const Row = ({ index, style }: any) => (
     <JsonRow style={style} row={formattedJson.response[index]} />
@@ -33,11 +51,11 @@ export default function JsonViewerPage({ file, onBack }: JsonViewerPageProps) {
           <List
             height={height}
             itemCount={formattedJson.length}
-            itemSize={30}
+            itemSize={handleItemSize(width)}
             width={width}
             style={{
               overflowX: 'hidden',
-              overflowY: 'auto'
+              overflowY: 'auto',
             }}
           >
             {Row}

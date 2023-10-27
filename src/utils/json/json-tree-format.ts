@@ -8,11 +8,14 @@ export const jsonTreeFormatV2 = (jsonObject: any, list: JsonTreeFormatV2[] = [],
 
     const isArray = message instanceof Array;
 
+    const messageString = `${message}`;
+
     const currentJson = {
       key,
       depth,
       type,
-      value: `${message}`,
+      value: messageString,
+      chars: messageString.length + key.length + (10 * depth) + 2,
     } as JsonTreeFormatV2;
 
     if (isArray) {
@@ -27,6 +30,7 @@ export const jsonTreeFormatV2 = (jsonObject: any, list: JsonTreeFormatV2[] = [],
         value: ']',
         depth,
         type: 'endArray',
+        chars: 1
       });
 
     } else if (type === 'object' && message !== undefined && message !== null) {
@@ -39,7 +43,8 @@ export const jsonTreeFormatV2 = (jsonObject: any, list: JsonTreeFormatV2[] = [],
         key: '',
         value: '}',
         depth: depth,
-        type: 'endObject'
+        type: 'endObject',
+        chars: 1
       });
     } else if (type === 'object' && message === undefined) {
       currentJson.type = 'undefined';
